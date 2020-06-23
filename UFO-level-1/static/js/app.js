@@ -1,14 +1,17 @@
 //Select table body and assign it to a variable
 var tbody = d3.select("tbody");
-
+var ufodata = data
 //Loop through each UFO object and append data to table on website
-data.forEach(function(UFO) {
-var row = tbody.append("tr");
-Object.entries(UFO).forEach(function([key, value]) {
-var cell = row.append("td");
-cell.text(value);
+function buildtable(ufodata){
+  ufodata.forEach(function(UFO) {
+  var row = tbody.append("tr");
+  Object.entries(UFO).forEach(function([key, value]) {
+  var cell = row.append("td");
+  cell.text(value);
 });
-});
+});}
+
+
 //---------------------------------------------------------------//
 //object.addEventListener(event, function)
 
@@ -36,12 +39,16 @@ function runEnter() {
 
   console.log(filteredData);
 
-  // Then, select the unordered list element by class name
-  var list = d3.select(".summary");
+  //Select table body so when you filter, it changes the table body
+  var list = d3.select("tbody");
 
-  // remove any children from the list to
+  // clear out the previous values in html that will changed based on filter criteria
   list.html("");
 
   // append stats to the list
-  list.append("li").text(data.city)
+  //tbody.append("li").text(filteredData)
+  buildtable(filteredData)
 }
+
+//Call the buildtable function as a default when the page loads
+buildtable(ufodata)
